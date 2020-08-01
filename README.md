@@ -4,9 +4,9 @@ Automatically press A/Y then repeat on Nintendo Switch using an Arduino Leonardo
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/udo8mv5oarg/0.jpg)](https://www.youtube.com/watch?v=udo8mv5oarg)
 
-A full writeup is [here](https://medium.com/@bertrandom/automating-zelda-3b37127e24c8).
+#### How to install Windows...
 
-#### How to use
+This has been tried and Tested on Windows 10 platform, in theory you can achieve the belwo on any platform - but for now the guide is focused on the most common OS. :)
 
 Walk up to Pondo until the **(A) Talk** option is available and plug in the controller. It will automatically sync with the console, initiate the bowling game with Pondo, throw a perfect strike, and end the bowling game. It will play the bowling game in a loop.
 
