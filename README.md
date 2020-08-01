@@ -12,13 +12,13 @@ This has been tried and Tested on Windows 10 platform, in theory you can achieve
 
 Enable
 
-[IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)
+[![IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)]
 
 #### 2. Ubuntu from Windows Store
 
 Install.
 
-[IMAGE ALT TEXT HERE](https://i.ibb.co/YDr8Sym/Ububut.png)
+[![IMAGE ALT TEXT HERE](https://i.ibb.co/YDr8Sym/Ububut.png)]
 
 
 
