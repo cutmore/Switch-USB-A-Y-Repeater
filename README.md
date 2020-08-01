@@ -1,6 +1,6 @@
-## snowball thrower
+## A/Y Repeater
 
-Automatically throws snowballs in The Legend of Zelda: Breath of the Wild by emulating a controller on a Teensy++ v2.0
+Automatically press A/Y then repeat on Nintendo Switch using an Arduino Leonardo via USB input
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/udo8mv5oarg/0.jpg)](https://www.youtube.com/watch?v=udo8mv5oarg)
 
