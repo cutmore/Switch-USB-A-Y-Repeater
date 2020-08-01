@@ -2,7 +2,7 @@
 
 Automatically press A/Y then repeat on Nintendo Switch using an Arduino Leonardo via USB input
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/udo8mv5oarg/0.jpg)](https://www.youtube.com/watch?v=udo8mv5oarg)
+[![IMAGE ALT TEXT HERE](https://ibb.co/xMCssZm)](https://www.youtube.com/watch?v=udo8mv5oarg)
 
 #### How to install Windows...
 
