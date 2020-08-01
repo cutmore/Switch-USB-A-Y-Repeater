@@ -12,7 +12,7 @@ This has been tried and Tested on Windows 10 platform, in theory you can achieve
 
 Ensure enabled.
 
-(https://i.ibb.co/fvGyphg/Windows-Features.png)
+[![IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)
 
 
 This repository has been tested using a Teensy 2.0++.
