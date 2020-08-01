@@ -8,11 +8,10 @@ Automatically press A/Y then repeat on Nintendo Switch using an Arduino Leonardo
 
 This has been tried and Tested on Windows 10 platform, in theory you can achieve the belwo on any platform - but for now the guide is focused on the most common OS. :)
 
-Walk up to Pondo until the **(A) Talk** option is available and plug in the controller. It will automatically sync with the console, initiate the bowling game with Pondo, throw a perfect strike, and end the bowling game. It will play the bowling game in a loop.
+###### Windows Subsystem for Linux
 
-Note that due to certain weather conditions, Link will sometimes fail to throw a strike, causing the game to enter into a mode where Link has to throw again. Thanks to a [change by exsilium](https://github.com/bertrandom/snowball-thrower/pull/1), the loop will recover from this, given enough time. I've tested this running for over 24 hours.
+Ensure enabled
 
-In case you see issues with controller conflicts while in docked mode, try using a USB-C to USB-A adapter in handheld mode. In dock mode, changes in the HDMI connection will briefly make the Switch not respond to incoming USB commands, skipping parts of the sequence. These changes may include turning off the TV, or switching the HDMI input. (Switching to the internal tuner will be OK, if this doesn't trigger a change in the HDMI input.)
 
 This repository has been tested using a Teensy 2.0++.
 
