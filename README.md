@@ -8,17 +8,17 @@ Automatically press A/Y then repeat on Nintendo Switch using an Arduino Leonardo
 
 This has been tried and Tested on Windows 10 platform, in theory you can achieve the belwo on any platform - but for now the guide is focused on the most common OS. :)
 
-#### Windows Subsystem for Linux
+#### 1. Windows Subsystem for Linux
 
 Enable
 
-[![IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)
+[IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)
 
-#### Ubuntu from Windows Store
+#### 2. Ubuntu from Windows Store
 
 Install.
 
-[![IMAGE ALT TEXT HERE](https://i.ibb.co/YDr8Sym/Ububut.png)
+[IMAGE ALT TEXT HERE](https://i.ibb.co/YDr8Sym/Ububut.png)
 
 
 
