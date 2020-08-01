@@ -4,15 +4,24 @@ Automatically press A/Y then repeat on Nintendo Switch using an Arduino Leonardo
 
 [![IMAGE ALT TEXT HERE](https://i.ibb.co/8jKBBkz/883-04.jpg)](https://www.youtube.com/watch?v=udo8mv5oarg)
 
-#### How to install Windows...
+## How to install Window
 
 This has been tried and Tested on Windows 10 platform, in theory you can achieve the belwo on any platform - but for now the guide is focused on the most common OS. :)
 
-###### Windows Subsystem for Linux
+#### Windows Subsystem for Linux
 
-Ensure enabled.
+Enable
 
 [![IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)
+
+#### Ubuntu from Windows Store
+
+Install.
+
+[![IMAGE ALT TEXT HERE](https://i.ibb.co/YDr8Sym/Ububut.png)
+
+
+
 
 
 This repository has been tested using a Teensy 2.0++.
