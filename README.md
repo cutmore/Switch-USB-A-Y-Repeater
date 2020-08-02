@@ -32,11 +32,11 @@ If this is your firstname running, you may be asked to set up some user informat
 
 sudo apt-get install make gcc-avr avrdude avr-libc 
 
-![IMAGE ALT TEXT HERE]https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/apt_get_install.png
+![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/apt_get_install.png)
 
-<div class="text-white bg-red mb-2">
-  .text-white on .bg-red
-</div>
+## YOU MAY GET AN ERROR HERE, IF YOU DO YOUR RESPOSITORIES JUST NEED UPDATING, ERROR EXAMPLE:
+
+
 
 #### 5. MAKE
 
