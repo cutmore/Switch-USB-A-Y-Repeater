@@ -34,7 +34,13 @@ sudo apt-get install make gcc-avr avrdude avr-libc
 
 ![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/apt_get_install.png)
 
-## YOU MAY GET AN ERROR HERE, IF YOU DO YOUR RESPOSITORIES JUST NEED UPDATING, ERROR EXAMPLE:
+#### YOU MAY GET AN ERROR HERE:
+
+![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/apt_get_With_error.png)
+
+If you do, we just need to update our repositories
+
+sudo apt-get update
 
 
 
