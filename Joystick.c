@@ -19,6 +19,13 @@ these buttons for our use.
 */
 
 #include "Joystick.h"
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define set_bit(address,bit) (address |= (1<<bit)) // sets BIT to 1 in the register specified with ADDRESS
+#define clear_bit(address,bit) (address &= ~(1<<bit)) // sets BIT to 0 in the register specified with ADDRESS
+#define toggle_bit(address,bit) (address ^= (1<<bit)) // sets BIT to the opposite of what it's set to currently in the register specified with ADDRESS
+#define check_bit(address,bit) ((address & (1<<bit)) == (1<<bit))
 
 typedef enum {
 	UP,
@@ -43,147 +50,11 @@ typedef struct {
 
 static const command step[] = {
 	// Setup controller
-	{ NOTHING,  250 },
-	{ TRIGGERS,   5 },
-	{ NOTHING,  150 },
-	{ TRIGGERS,   5 },
-	{ NOTHING,  150 },
+	{ NOTHING,   15 },
 	{ A,          5 },
-	{ NOTHING,  250 },
 
-	// Talk to Pondo
-	{ A,          5 }, // Start
-	{ NOTHING,   30 },
-	{ B,          5 }, // Quick output of text
-	{ NOTHING,   20 }, // Halloo, kiddums!
-	{ A,          5 }, // <- I'll try it!
 	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 }, // <- OK!
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // Aha! Play bells are ringing! I gotta set up the pins, but I'll be back in a flurry
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  325 }, // Cut to different scene (Knock 'em flat!)
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 }, // <Continue> // Camera transition takes place after this
-	{ NOTHING,   50 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // If you can knock over all 10 pins in one roll, that's a strike
-	{ A,          5 }, // <Continue>
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // A spare is...
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  100 }, // Well, good luck
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  150 }, // Pondo walks away
-
-	// Pick up Snowball (Or alternatively, run to bail in case of a non-strike)
-	{ A,          5 },
-	{ NOTHING,   50 },
-	{ LEFT,      42 },
-	{ UP,        80 },
-	{ THROW,     25 },
-
-	// Non-strike alternative flow, cancel bail and rethrow
-	{ NOTHING,   30 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 }, // I have to split dialogue (It's nothing)
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,  450 },
-	{ B,          5 }, // Snowly moly... there are rules!
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 }, // Second dialogue
-	{ NOTHING,   20 },
-	{ DOWN,      10 }, // Return to snowball
-	{ NOTHING,   20 },
-	{ A,          5 }, // Pick up snowball, we just aimlessly throw it
-	{ NOTHING,   50 },
-	{ UP,        10 },
-	{ THROW,     25 },
-
-	// Back at main flow
-	{ NOTHING,  175 }, // Ater throw wait
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // To the rewards
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	
-	{ B,          5 }, // Wait for 450 cycles by bashing B (Like real players do!)
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 } // Saving, intermission
+	{ Y,          5 },
 };
 
 // Main entry point.
@@ -199,6 +70,12 @@ int main(void) {
 		HID_Task();
 		// We also need to run the main USB management task.
 		USB_USBTask();
+
+		if(check_bit(PINF,0)) {
+			set_bit(PORTD,3);
+		} else {
+			clear_bit(PORTD,3);
+		}
 	}
 }
 
@@ -212,16 +89,63 @@ void SetupHardware(void) {
 	clock_prescale_set(clock_div_1);
 	// We can then initialize our hardware and peripherals, including the USB stack.
 
-	#ifdef ALERT_WHEN_DONE
-	// Both PORTD and PORTB will be used for the optional LED flashing and buzzer.
-	#warning LED and Buzzer functionality enabled. All pins on both PORTB and \
-PORTD will toggle when printing is done.
-	DDRD  = 0xFF; //Teensy uses PORTD
-	PORTD =  0x0;
-                  //We'll just flash all pins on both ports since the UNO R3
-	DDRB  = 0xFF; //uses PORTB. Micro can use either or, but both give us 2 LEDs
-	PORTB =  0x0; //The ATmega328P on the UNO will be resetting, so unplug it?
-	#endif
+	// DIGITAL PIN 3
+        set_bit(DDRD,0); // Pin PD5 is now configured as an OUTPUT
+	//set_bit(PORTD,0); // Pin PD5 is now HIGH
+
+	// DIGITAL PIN 2
+        set_bit(DDRD,1); // Pin PD5 is now configured as an OUTPUT
+	//set_bit(PORTD,1); // Pin PD5 is now HIGH
+
+	// DIGITAL PIN 0
+        set_bit(DDRD,2); // Pin PD5 is now configured as an OUTPUT
+	//set_bit(PORTD,2); // Pin PD5 is now HIGH
+
+        //set_bit(DDRD,3); // Pin PD5 is now configured as an OUTPUT
+	//set_bit(PORTD,3); // Pin PD5 is now HIGH
+
+        //set_bit(DDRD,4); // Pin PD5 is now configured as an OUTPUT
+	//set_bit(PORTD,4); // Pin PD5 is now HIGH
+
+    	//set_bit(DDRD,5); // Pin PD5 is now configured as an OUTPUT
+        //set_bit(PORTD,5); // Pin PD5 is now HIGH
+
+        //set_bit(DDRD,4); // Pin PD5 is now configured as an OUTPUT
+        //set_bit(PORTD,4); // Pin PD5 is now HIGH
+
+	//set_bit(DDRD,6); // Pin PD5 is now configured as an OUTPUT
+	//set_bit(PORTD,6); // Pin PD5 is now HIGH
+
+	set_bit(DDRD,3); // Pin PD5 is now configured as an OUTPUT
+        //set_bit(PORTD,7); // Pin PD5 is now HIGH
+
+	//clear_bit(DDRD,3);
+	//set_bit(PORTD, 3);
+	clear_bit(DDRF,0); // Pin PF0 is now configured as an INPUT
+	//set_bit(PORTF,0); // Turn on internal pullups for PF0
+
+
+
+	//DDRF &= ~(1 << PINF0);
+	//if ( (PINB & (1 << PINB4)) == (1 << PINB4) ) {
+	//	//pin is high
+	//	set_bit(PORTD,7);
+	//} else {
+	//       // pin is low 
+	//       set_bit(PORTD,7);
+	//}
+
+	///#ifdef ALERT_WHEN_DONE
+	//// Both PORTD and PORTB will be used for the optional LED flashing and buzzer.
+	//#warning LED and Buzzer functionality enabled. All pins on both PORTB and 
+        //PORTD will toggle when printing is done.
+	//
+	//DDRD  = 0xFF; //Teensy uses PORTD
+	//PORTD =  0x0;
+        //          //We'll just flash all pins on both ports since the UNO R3
+	//DDRB  = 0xFF; //uses PORTB. Micro can use either or, but both give us 2 LEDs
+	//PORTB =  0x0; //The ATmega328P on the UNO will be resetting, so unplug it?
+	//#endif
 	// The USB stack should be initialized last.
 	USB_Init();
 }
@@ -229,11 +153,14 @@ PORTD will toggle when printing is done.
 // Fired to indicate that the device is enumerating.
 void EVENT_USB_Device_Connect(void) {
 	// We can indicate that we're enumerating here (via status LEDs, sound, etc.).
+	set_bit(PORTD,2);
+	set_bit(PORTD,3);
 }
 
 // Fired to indicate that the device is no longer connected to a host.
 void EVENT_USB_Device_Disconnect(void) {
 	// We can indicate that our device is not ready (via status LEDs, sound, etc.).
+	clear_bit(PORTD,2);
 }
 
 // Fired when the host set the current configuration of the USB device after enumeration.
@@ -411,7 +338,16 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					break;
 
 				case A:
+					//set_bit(PORTD,0);
+					set_bit(PORTD,0);
+					clear_bit(PORTD,1);
 					ReportData->Button |= SWITCH_A;
+					break;
+
+                                case Y:
+					set_bit(PORTD,1);
+					clear_bit(PORTD,0);
+					ReportData->Button |= SWITCH_Y;
 					break;
 
 				case B:
@@ -430,6 +366,10 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				case TRIGGERS:
 					ReportData->Button |= SWITCH_L | SWITCH_R;
 					break;
+
+				case NOTHING:
+					clear_bit(PORTD,0);
+					clear_bit(PORTD,1);
 
 				default:
 					ReportData->LX = STICK_CENTER;
@@ -454,10 +394,10 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 				// state = CLEANUP;
 
-				bufindex = 7;
+				bufindex = 0;
 				duration_count = 0;
 
-				state = BREATHE;
+				state = PROCESS;
 
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;

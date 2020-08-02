@@ -12,35 +12,73 @@ This has been tried and Tested on Windows 10 platform, in theory you can achieve
 
 Enable
 
-![IMAGE ALT TEXT HERE](https://i.ibb.co/fvGyphg/Windows-Features.png)
+![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/Windows_Features.png)
 
 #### 2. Ubuntu from Windows Store
 
 Install.
 
-![IMAGE ALT TEXT HERE](https://i.ibb.co/YDr8Sym/Ububut.png)
+![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/Ubuntu.png)
 
+#### 3. Open Ubuntu
 
+Should be presented within something similar to below:
 
+If this is your firstname running, you may be asked to set up some user information - please do this.
 
+*INSERT IMAGE HERE*
 
-This repository has been tested using a Teensy 2.0++.
+#### 4. Install required libraries
 
-#### Compiling and Flashing onto the Teensy 2.0++
-Go to the Teensy website and download/install the [Teensy Loader application](https://www.pjrc.com/teensy/loader.html). For Linux, follow their instructions for installing the [GCC Compiler and Tools](https://www.pjrc.com/teensy/gcc.html). For Windows, you will need the [latest AVR toolchain](http://www.atmel.com/tools/atmelavrtoolchainforwindows.aspx) from the Atmel site. See [this issue](https://github.com/LightningStalker/Splatmeme-Printer/issues/10) and [this thread](http://gbatemp.net/threads/how-to-use-shinyquagsires-splatoon-2-post-printer.479497/) on GBAtemp for more information. (Note for Mac users - the AVR MacPack is now called AVR CrossPack. If that does not work, you can try installing `avr-gcc` with `brew`.)
+(I'll be honest, I didn't take good notes here - so this will need a round of validation - but here's the libraries I noted that I installed)
 
-LUFA has been included as a git submodule, so cloning the repo like this:
+sudo apt-get install make gcc-avr avrdude avr-libc 
 
-```
-git clone --recursive git@github.com:bertrandom/snowball-thrower.git
-```
+#### 5. MAKE
 
-will put LUFA in the right directory.
+Go to the directory where you installed the repository and type 'make', if should complete with no errors.
 
-Now you should be ready to rock. Open a terminal window in the `snowball-thrower` directory, type `make`, and hit enter to compile. If all goes well, the printout in the terminal will let you know it finished the build! Follow the directions on flashing `Joystick.hex` onto your Teensy, which can be found page where you downloaded the Teensy Loader application.
+*INSERT IMAGE HERE*
 
-#### Thanks
+This will create a Joytick.hex, please copy this somewhere into the Windows Directories, as you will need to access this in a little bit.
 
-Thanks to Shiny Quagsire for his [Splatoon post printer](https://github.com/shinyquagsire23/Switch-Fightstick) and progmem for his [original discovery](https://github.com/progmem/Switch-Fightstick).
+(TIP: Windows Directories are found at /mnt/c/)
 
-Thanks to [exsilium](https://github.com/bertrandom/snowball-thrower/pull/1) for improving the command structure, optimizing the waiting times, and handling the failure scenarios. It can now run indefinitely!
+#### 6. Install Arduino IDE
+
+https://www.arduino.cc/
+
+#### 7. Open IDE, and Enable Verbose During Upload
+
+File -> Preferences:
+
+Show verbose output during: upload <- Tick this
+
+*INSERT IMAGE HERE*
+
+#### 8. Ensure Arduino is recongised
+
+Selct the right Arduion, and COM port and upload any old random sketch to Arduion
+
+#### 9. AVRDUDE
+
+Search the log, you're looking for something that looks like the below
+
+*INSERT IMAGE HERE*
+
+C:\Program Files (x86)\Arduino\hardware\tools\avr/bin/avrdude -CC:\Program Files (x86)\Arduino\hardware\tools\avr/etc/avrdude.conf -v -patmega32u4 -cavr109 -PCOM6 -b57600 -D -Uflash:w:C:\Users\chris\AppData\Local\Temp\arduino_build_650835/sketch_jul09a.ino.hex:i 
+
+You'll then need to start making this appropriate for you:
+(As an example below)
+
+avrdude.exe -CC:\Program Files (x86)\Arduino\hardware\tools\avr/etc/avrdude.conf -v -patmega32u4 -cavr109 -PCOM6 -b57600 -D -Uflash:w:C:\Users\chris\AVRDUDE\Joystick.hex:i 
+
+#### 10. Upload to board
+
+You'll need to hit the reset button on the Leonardo, and then execute the above avrdude command that you've just built.
+
+Arduino must be in reset mode for this to work.
+(Arduino IDE is able to put the board into upload mode, but as we're using avrdude directly - we must do this manually)
+
+*INSERT VIDEO HERE*
+
