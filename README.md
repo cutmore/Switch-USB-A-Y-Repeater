@@ -30,9 +30,13 @@ If this is your firstname running, you may be asked to set up some user informat
 
 #### 4. Install required libraries
 
-(I'll be honest, I didn't take good notes here - so this will need a round of validation - but here's the libraries I noted that I installed)
-
 sudo apt-get install make gcc-avr avrdude avr-libc 
+
+![IMAGE ALT TEXT HERE]https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/apt_get_install.png
+
+<div class="text-white bg-red mb-2">
+  .text-white on .bg-red
+</div>
 
 #### 5. MAKE
 
