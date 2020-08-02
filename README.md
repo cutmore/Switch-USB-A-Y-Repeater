@@ -42,7 +42,9 @@ If you do, we just need to update our repositories
 
 sudo apt-get update
 
+![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/cutmore/Switch-USB-A-Y-Repeater/master/Images_for_readme/apt_get_update.png)
 
+#### This should resolve the error
 
 #### 5. MAKE
 
